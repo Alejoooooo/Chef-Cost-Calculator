@@ -10,6 +10,29 @@ import java.io.PrintWriter;
 import it.chefcostcalculator.core.Ingredient;
 
 public abstract class FileDB {
+	
+	public static Boolean isPresentIngredient(String filename, String ingredientName) throws IOException{
+		FileReader file;
+		try {
+			file = new FileReader(filename);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new IOException("FileNotValid");
+		}
+		BufferedReader reader = new BufferedReader(file);
+		String line = reader.readLine();
+		
+		while(line != null){
+			if(line.split(":")[0].equals(ingredientName)){
+				reader.close();
+				return true;
+			}
+			line=reader.readLine();
+		}
+		reader.close();
+		return false;
+	}
+	
 	public static Ingredient getIngredientByNameFromFile(String filename, String ingredientName) throws IOException{
 		FileReader file;
 		try {
@@ -20,24 +43,24 @@ public abstract class FileDB {
 		}
 		BufferedReader reader = new BufferedReader(file);
 		String line = reader.readLine();
-		if(line.split(":")[0].equals(ingredientName)){
-			reader.close();
-			return new Ingredient(line.split(":")[0], Double.parseDouble(line.split(":")[1]));
-		}
+
 		
-		while(line != null  && !line.split(":")[0].equals(ingredientName)){
-//			System.out.println(line);
-			line=reader.readLine();
+		while(line != null){
+			if(line.split(":")[0].equals(ingredientName)){
+				reader.close();
+				return new Ingredient(line.split(":")[0], Double.parseDouble(line.split(":")[1]));
+			}	
+			line = reader.readLine();
 		}
-		
-		if(line != null){
-			reader.close();
-			return new Ingredient(line.split(":")[0], Double.parseDouble(line.split(":")[1]));
-		}
-		
 		reader.close();
-		throw new IOException("IngredientNotPresent");
-	}
+		
+		if(line == null){
+			throw new IOException("IngredientNotPresent");
+		}
+		
+		return null;
+		
+}
 
 	public static void ingredientToFile(String filename, Ingredient ingredient) throws IOException{
 		try {

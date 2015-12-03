@@ -18,22 +18,34 @@ public class Main {
 		
 		Recipe dolce = new Recipe("Dolce", dosi);
 		
+//		try {
+//			FileDB.ingredientToFile("CostDB.txt", new Ingredient("Pepe", 1.372));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
 		try {
-			FileDB.ingredientToFile("CostDB.txt", new Ingredient("Pepe", 1.372));
+			Ingredient r = FileDB.getIngredientByNameFromFile("CostDB.txt", "Zucca");
+			System.out.println(r);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
-		
 //		try {
-//			Ingredient r = FileDB.getIngredientByNameFromFile("CostDB.txt", "Sale");
-//			System.out.println(r);
+//			FileDB.ingredientToFile("CostBD.txt", new Ingredient("Zucca", 21));
 //		} catch (IOException e) {
+//			// TODO Auto-generated catch block
 //			System.out.println(e.getMessage());
-//			
 //		}
 
+//		try {
+//			System.out.println(FileDB.isPresentIngredient("CostDB.txt", farina.getIngredientName()));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 	}
 

@@ -8,3 +8,8 @@ Acqua:1.0
 Carne:13.2
 Pasta:2.4
 Verdura:23.0
+Peperoni:23.0
+Melanzane:24.0
+Zucca:21.0
+Pesce:35.0
+Tonno:122.0
