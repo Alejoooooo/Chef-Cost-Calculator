@@ -17,13 +17,22 @@ public class Main {
 		dosi.add(burroDose);
 		
 		Recipe dolce = new Recipe("Dolce", dosi);
+		
 		try {
-			Ingredient r = FileDB.getIngredientByNameFromFile("CostDB.txt", "Burro");
-			System.out.println(r);
+			FileDB.ingredientToFile("CostDB.txt", new Ingredient("Pepe", 1.372));
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
-			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		
+//		try {
+//			Ingredient r = FileDB.getIngredientByNameFromFile("CostDB.txt", "Sale");
+//			System.out.println(r);
+//		} catch (IOException e) {
+//			System.out.println(e.getMessage());
+//			
+//		}
 
 		
 	}

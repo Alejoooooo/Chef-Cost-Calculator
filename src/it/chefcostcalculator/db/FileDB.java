@@ -1,8 +1,11 @@
 package it.chefcostcalculator.db;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import it.chefcostcalculator.core.Ingredient;
 
@@ -13,7 +16,7 @@ public abstract class FileDB {
 			file = new FileReader(filename);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new IOException("File inesistente");
+			throw new IOException("FileNotValid");
 		}
 		BufferedReader reader = new BufferedReader(file);
 		String line = reader.readLine();
@@ -33,6 +36,19 @@ public abstract class FileDB {
 		}
 		
 		reader.close();
-		throw new IOException("Ingrediente non presente");
+		throw new IOException("IngredientNotPresent");
+	}
+
+	public static void ingredientToFile(String filename, Ingredient ingredient) throws IOException{
+		try {
+			getIngredientByNameFromFile(filename, ingredient.getIngredientName());
+		} catch (Exception e) {
+			if(e.getMessage().equals("IngredientNotPresent")){
+				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("CostDB.txt", true)));
+				out.println(ingredient.getIngredientName() + ":" + ingredient.getIngredientCost());
+				out.close();
+			}
+		}
+			
 	}
 }

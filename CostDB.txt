@@ -1,2 +1,10 @@
 Farina:1.6
 Burro:2.5
+Zucchero:1.32
+Sale:1.72
+sSale:1.72
+Pepe:1.372
+Acqua:1.0
+Carne:13.2
+Pasta:2.4
+Verdura:23.0
