@@ -35,6 +35,13 @@ public class Ingredient {
 	public void setIngredientCost(double ingredientCost) {
 		this.ingredientCost = ingredientCost;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "NOME: " + ingredientName + "     COSTO: " + ingredientCost;
+	}
 	
 	
 

@@ -19,7 +19,7 @@ public class Main {
 		Recipe dolce = new Recipe("Dolce", dosi);
 		try {
 			Ingredient r = FileDB.getIngredientByNameFromFile("CostDB.txt", "Burro");
-			System.out.println(r.getIngredientName() + " " + r.getIngredientCost());
+			System.out.println(r);
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 			

@@ -1,2 +1,2 @@
-Farina:1.5
-Burro:2.0
+Farina:1.6
+Burro:2.5
