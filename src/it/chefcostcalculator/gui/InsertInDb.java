@@ -77,7 +77,7 @@ public class InsertInDb {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					if(!FileDB.isPresentIngredient("CostDB.txt", ingredientNameField.getText())){
+					if(!FileDB.isPresentIngredient("CostDB.txt", ingredientNameField.getText().toUpperCase())){
 						FileDB.ingredientToFile("CostDB.txt", new Ingredient(ingredientNameField.getText(), Double.parseDouble(ingredientCostField.getText())));
 						statusField.setBackground(new Color(0, 255, 0));
 						statusField.setText("INGREDIENTE INSERITO");
@@ -86,7 +86,7 @@ public class InsertInDb {
 					}
 					else{
 						statusField.setBackground(new Color(255, 0, 0));
-						statusField.setText("INGREDIENTE NON INSERITO");
+						statusField.setText("INGREDIENTE GIA' PRESENTE");
 					}
 				} catch (IOException e) {
 					statusField.setText(e.getMessage());

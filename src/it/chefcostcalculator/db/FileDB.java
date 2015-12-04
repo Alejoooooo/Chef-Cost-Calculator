@@ -66,11 +66,14 @@ public abstract class FileDB {
 		try {
 			getIngredientByNameFromFile(filename, ingredient.getIngredientName());
 		} catch (Exception e) {
-			if(e.getMessage().equals("IngredientNotPresent")){
+//			if(e.getMessage().equals("IngredientNotPresent")){
 				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("CostDB.txt", true)));
-				out.println(ingredient.getIngredientName() + ":" + ingredient.getIngredientCost());
+				String toInsert="";
+				toInsert+=ingredient.getIngredientName() + ":" + ingredient.getIngredientCost();
+				toInsert=toInsert.toUpperCase();
+				out.println(toInsert);
 				out.close();
-			}
+//			}
 		}
 			
 	}
