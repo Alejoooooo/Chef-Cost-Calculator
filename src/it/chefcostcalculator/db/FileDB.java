@@ -10,13 +10,12 @@ import java.io.PrintWriter;
 import it.chefcostcalculator.core.Ingredient;
 
 public abstract class FileDB {
-	
+		
 	public static Boolean isPresentIngredient(String filename, String ingredientName) throws IOException{
 		FileReader file;
 		try {
 			file = new FileReader(filename);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			throw new IOException("FileNotValid");
 		}
 		BufferedReader reader = new BufferedReader(file);
@@ -38,7 +37,6 @@ public abstract class FileDB {
 		try {
 			file = new FileReader(filename);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			throw new IOException("FileNotValid");
 		}
 		BufferedReader reader = new BufferedReader(file);
@@ -63,10 +61,10 @@ public abstract class FileDB {
 }
 
 	public static void ingredientToFile(String filename, Ingredient ingredient) throws IOException{
-		try {
-			getIngredientByNameFromFile(filename, ingredient.getIngredientName());
-		} catch (Exception e) {
-//			if(e.getMessage().equals("IngredientNotPresent")){
+//		try {
+//			getIngredientByNameFromFile(filename, ingredient.getIngredientName());
+//		} catch (Exception e) {
+////			if(e.getMessage().equals("IngredientNotPresent")){
 				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("CostDB.txt", true)));
 				String toInsert="";
 				toInsert+=ingredient.getIngredientName() + ":" + ingredient.getIngredientCost();
@@ -74,7 +72,7 @@ public abstract class FileDB {
 				out.println(toInsert);
 				out.close();
 //			}
-		}
+//		}
 			
 	}
 }

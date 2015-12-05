@@ -15,6 +15,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.JRadioButton;
 
 public class InsertInDb {
 
@@ -22,6 +23,7 @@ public class InsertInDb {
 	private JTextField ingredientNameField;
 	private JTextField ingredientCostField;
 	private JTextField statusField;
+	private JTextField weightField;
 
 	/**
 	 * Launch the application.
@@ -51,7 +53,7 @@ public class InsertInDb {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 283, 277);
+		frame.setBounds(100, 100, 283, 296);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -93,7 +95,7 @@ public class InsertInDb {
 				}
 			}
 		});
-		btnSave.setBounds(88, 171, 97, 25);
+		btnSave.setBounds(88, 219, 97, 25);
 		frame.getContentPane().add(btnSave);
 		
 		JLabel lblInserisciIngredienteIn = new JLabel("INSERISCI INGREDIENTE IN DB");
@@ -102,9 +104,27 @@ public class InsertInDb {
 		frame.getContentPane().add(lblInserisciIngredienteIn);
 		
 		statusField = new JTextField();
+		statusField.setText("STATUS");
 		statusField.setEditable(false);
-		statusField.setBounds(29, 136, 201, 22);
+		statusField.setBounds(29, 184, 201, 22);
 		frame.getContentPane().add(statusField);
 		statusField.setColumns(10);
+		
+		JRadioButton rdbtnG = new JRadioButton("g");
+		rdbtnG.setBounds(150, 130, 40, 25);
+		frame.getContentPane().add(rdbtnG);
+		
+		JRadioButton rdbtnKg = new JRadioButton("kg");
+		rdbtnKg.setBounds(203, 130, 54, 25);
+		frame.getContentPane().add(rdbtnKg);
+		
+		JLabel lblPeso = new JLabel("PESO");
+		lblPeso.setBounds(12, 134, 40, 16);
+		frame.getContentPane().add(lblPeso);
+		
+		weightField = new JTextField();
+		weightField.setBounds(57, 131, 54, 22);
+		frame.getContentPane().add(weightField);
+		weightField.setColumns(10);
 	}
 }

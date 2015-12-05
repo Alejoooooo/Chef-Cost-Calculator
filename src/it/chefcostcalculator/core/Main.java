@@ -26,12 +26,12 @@ public class Main {
 //		}
 		
 		
-		try {
-			Ingredient r = FileDB.getIngredientByNameFromFile("CostDB.txt", "Zucca");
-			System.out.println(r);
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
+//		try {
+//			Ingredient r = FileDB.getIngredientByNameFromFile("CostDB.txt", "Zucca");
+//			System.out.println(r);
+//		} catch (IOException e) {
+//			System.out.println(e.getMessage());
+//		}
 		
 //		try {
 //			FileDB.ingredientToFile("CostBD.txt", new Ingredient("Zucca", 21));
@@ -46,6 +46,7 @@ public class Main {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+		
 		
 	}
 
