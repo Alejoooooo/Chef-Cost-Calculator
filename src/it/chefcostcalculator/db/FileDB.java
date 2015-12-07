@@ -2,14 +2,23 @@ package it.chefcostcalculator.db;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-
 import it.chefcostcalculator.core.Ingredient;
 
 public abstract class FileDB {
+	
+	public static Ingredient getIngredientFromString(String ingredient){
+		return new Ingredient(ingredient.split(":")[0], Double.parseDouble(ingredient.split(":")[1]));
+	}
 		
 	public static Boolean isPresentIngredient(String filename, String ingredientName) throws IOException{
 		FileReader file;
@@ -22,7 +31,7 @@ public abstract class FileDB {
 		String line = reader.readLine();
 		
 		while(line != null){
-			if(line.split(":")[0].equals(ingredientName)){
+			if(line.split(":")[0].equals(ingredientName.toUpperCase())){
 				reader.close();
 				return true;
 			}
@@ -65,7 +74,7 @@ public abstract class FileDB {
 //			getIngredientByNameFromFile(filename, ingredient.getIngredientName());
 //		} catch (Exception e) {
 ////			if(e.getMessage().equals("IngredientNotPresent")){
-				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("CostDB.txt", true)));
+				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
 				String toInsert="";
 				toInsert+=ingredient.getIngredientName() + ":" + ingredient.getIngredientCost();
 				toInsert=toInsert.toUpperCase();
@@ -74,5 +83,25 @@ public abstract class FileDB {
 //			}
 //		}
 			
+	}
+	
+	public static void removeIngredientFromFile(String filename, String ingredientName) throws IOException{
+	  	FileReader fr = new FileReader(filename);
+	  	String tempFilename = "temp.txt";
+	  	
+	  	BufferedReader reader = new BufferedReader(fr);
+	  	String line = reader.readLine();
+	  	while(line != null){
+//	  		System.out.println(line);
+//	  		System.out.println(getIngredientFromString(line).getIngredientName());
+	  		if(!getIngredientFromString(line).getIngredientName().equals(ingredientName.toUpperCase()))
+	  			ingredientToFile(tempFilename, getIngredientFromString(line));
+	  		line = reader.readLine();
+	  	}
+	  	reader.close();
+	  	File tmp = new File(tempFilename);
+	  	File src = new File(filename);
+	  	src.delete();
+	  	tmp.renameTo(src);
 	}
 }

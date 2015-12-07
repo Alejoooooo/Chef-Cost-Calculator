@@ -38,6 +38,14 @@ public class Recipe {
 		this.ingredientList = ingredientList;
 	}
 	
+	public double getRecipeTotalCost(){
+		double result = 0.0;
+		for(Dose d : ingredientList){
+			result += (d.getQuantity() / 100.0) * d.getIngredient().getIngredientCost();
+		}
+		return result;
+	}
+	
 	
 
 }
