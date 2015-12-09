@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+
 import it.chefcostcalculator.core.Ingredient;
 
 public abstract class FileDB {
@@ -109,5 +111,25 @@ public abstract class FileDB {
 	  	File src = new File(filename);
 	  	src.delete();
 	  	tmp.renameTo(src);
+	}
+	
+	public static ArrayList<Ingredient> getIngredientListFromFile(String filename) throws IOException{
+		ArrayList<Ingredient> list = new ArrayList<Ingredient>();
+		FileReader file;
+		try {
+			file = new FileReader(filename);
+		} catch (Exception e) {
+			throw new IOException("FileNotValid");
+		}
+		BufferedReader reader = new BufferedReader(file);
+		String line = reader.readLine();
+		
+		while(line != null){
+			list.add(getIngredientFromString(line));
+			line=reader.readLine();
+		}
+		reader.close();
+		return list;
+		
 	}
 }

@@ -15,8 +15,13 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.GridLayout;
+import javax.swing.JTextArea;
 
 public class MainGui {
 
@@ -77,6 +82,10 @@ public class MainGui {
 		frame.getContentPane().add(panelIngredientAlreadyPresent, "name_4788555646788");
 		panelIngredientAlreadyPresent.setLayout(null);
 		
+		JPanel panelShowIngredientsInFile = new JPanel();
+		frame.getContentPane().add(panelShowIngredientsInFile, "name_11509410566825");
+		panelShowIngredientsInFile.setLayout(null);
+		
 		JButton btnInserisciIngrediente = new JButton("INSERISCI INGREDIENTE");
 		btnInserisciIngrediente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -88,6 +97,12 @@ public class MainGui {
 		panelMain.add(btnInserisciIngrediente);
 		
 		JButton btnMostraIngredienti = new JButton("MOSTRA INGREDIENTI");
+		btnMostraIngredienti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelShowIngredientsInFile.setVisible(true);
+				panelMain.setVisible(false);
+			}
+		});
 		btnMostraIngredienti.setBounds(98, 127, 235, 25);
 		panelMain.add(btnMostraIngredienti);
 		
@@ -119,7 +134,6 @@ public class MainGui {
 		
 		String[] measures = {"g", "Kg"};
 		JComboBox comboBoxMeasure = new JComboBox(measures);
-		comboBoxMeasure.setEditable(true);
 		comboBoxMeasure.setBounds(186, 141, 73, 22);
 		panelAddIngredient.add(comboBoxMeasure);
 		
@@ -149,16 +163,19 @@ public class MainGui {
 		JButton btnSalva = new JButton("SALVA");
 		btnSalva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Double price = new Double(0);
+				Double price = 0.0;
 				if(comboBoxMeasure.getSelectedItem() == "g"){
 					price = (100 / Double.parseDouble(textFieldQuantity.getText())) * Double.parseDouble(textFieldPrice.getText());
 				}
 				if(comboBoxMeasure.getSelectedItem() == "Kg"){
 					price = (Double.parseDouble(textFieldQuantity.getText()) / 10) * Double.parseDouble(textFieldPrice.getText());
 				}
+//				This is for rounding the price at two decimals
+				price = new BigDecimal(price).setScale(2, RoundingMode.HALF_UP).doubleValue();
+				
 				Ingredient toFile = new Ingredient(textFieldIngredient.getText(), price);
 				try {
-					FileDB.ingredientToFile("CostDB.txt", toFile);
+					FileDB.insertIngredientToFile("CostDB.txt", toFile);
 					panelIngredientAddedToFile.setVisible(true);
 					panelAddIngredient.setVisible(false);
 //				} catch (IOException e1) {
@@ -166,7 +183,7 @@ public class MainGui {
 //					panelIngredientAlreadyPresent.setVisible(true);
 //					panelAddIngredient.setVisible(false);
 				} catch (Exception e1) {
-					System.out.println(e1.getMessage());
+//					System.out.println(e1.getMessage());
 					panelIngredientAlreadyPresent.setVisible(true);
 					panelAddIngredient.setVisible(false);
 				}
@@ -191,12 +208,41 @@ public class MainGui {
 		panelIngredientAddedToFile.add(btnTornaAlMenu);
 		
 		JLabel lblIngredienteGiaPresente = new JLabel("INGREDIENTE GIA' PRESENTE");
+		lblIngredienteGiaPresente.setForeground(Color.RED);
+		lblIngredienteGiaPresente.setBackground(Color.LIGHT_GRAY);
 		lblIngredienteGiaPresente.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIngredienteGiaPresente.setBounds(12, 99, 408, 16);
 		panelIngredientAlreadyPresent.add(lblIngredienteGiaPresente);
 		
 		JButton btnBackToMenu = new JButton("TORNA AL MENU PRINCIPALE");
+		btnBackToMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelMain.setVisible(true);
+				panelIngredientAlreadyPresent.setVisible(false);
+			}
+		});
 		btnBackToMenu.setBounds(12, 169, 408, 25);
 		panelIngredientAlreadyPresent.add(btnBackToMenu);
+		
+		JTextArea textAreaIngredients = new JTextArea();
+		textAreaIngredients.setBounds(12, 30, 144, 292);
+		panelShowIngredientsInFile.add(textAreaIngredients);
+		textAreaIngredients.setText("asd");
+		
+		JTextArea textAreaPrices = new JTextArea();
+		textAreaPrices.setBounds(168, 30, 96, 292);
+		panelShowIngredientsInFile.add(textAreaPrices);
+		
+		JButton btnMenu = new JButton("MENU");
+		btnMenu.setBounds(304, 170, 97, 25);
+		panelShowIngredientsInFile.add(btnMenu);
+		
+		JLabel lblIngredienti = new JLabel("INGREDIENTI");
+		lblIngredienti.setBounds(44, 13, 87, 16);
+		panelShowIngredientsInFile.add(lblIngredienti);
+		
+		JLabel lblPrezzo = new JLabel("PREZZO");
+		lblPrezzo.setBounds(190, 13, 56, 16);
+		panelShowIngredientsInFile.add(lblPrezzo);
 	}
 }
