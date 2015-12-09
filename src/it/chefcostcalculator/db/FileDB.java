@@ -69,21 +69,27 @@ public abstract class FileDB {
 		
 }
 
-	public static void ingredientToFile(String filename, Ingredient ingredient) throws IOException{
+	public static void insertIngredientToFile(String filename, Ingredient ingredient) throws IOException, IllegalArgumentException{
 //		try {
 //			getIngredientByNameFromFile(filename, ingredient.getIngredientName());
 //		} catch (Exception e) {
 ////			if(e.getMessage().equals("IngredientNotPresent")){
-				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
-				String toInsert="";
-				toInsert+=ingredient.getIngredientName() + ":" + ingredient.getIngredientCost();
-				toInsert=toInsert.toUpperCase();
-				out.println(toInsert);
-				out.close();
+		PrintWriter out = new PrintWriter(new FileOutputStream(new File(filename), true));
+		if(isPresentIngredient(filename, ingredient.getIngredientName())){
+			out.close();
+			throw new IllegalArgumentException("alreadyPresent");
+		}
+		
+//		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+		String toInsert="";
+		toInsert+=ingredient.getIngredientName() + ":" + ingredient.getIngredientCost();
+		toInsert=toInsert.toUpperCase();
+		out.println(toInsert);
+		out.close();
 //			}
 //		}
 			
-	}
+}
 	
 	public static void removeIngredientFromFile(String filename, String ingredientName) throws IOException{
 	  	FileReader fr = new FileReader(filename);
@@ -95,7 +101,7 @@ public abstract class FileDB {
 //	  		System.out.println(line);
 //	  		System.out.println(getIngredientFromString(line).getIngredientName());
 	  		if(!getIngredientFromString(line).getIngredientName().equals(ingredientName.toUpperCase()))
-	  			ingredientToFile(tempFilename, getIngredientFromString(line));
+	  			insertIngredientToFile(tempFilename, getIngredientFromString(line));
 	  		line = reader.readLine();
 	  	}
 	  	reader.close();
