@@ -17,11 +17,13 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JTextArea;
+import javax.swing.ImageIcon;
 
 public class MainGui {
 
@@ -62,7 +64,7 @@ public class MainGui {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 394);
+		frame.setBounds(100, 100, 605, 394);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		
@@ -93,7 +95,7 @@ public class MainGui {
 				panelMain.setVisible(false);
 			}
 		});
-		btnInserisciIngrediente.setBounds(98, 49, 235, 25);
+		btnInserisciIngrediente.setBounds(172, 179, 235, 25);
 		panelMain.add(btnInserisciIngrediente);
 		
 		JButton btnMostraIngredienti = new JButton("MOSTRA INGREDIENTI");
@@ -103,16 +105,22 @@ public class MainGui {
 				panelMain.setVisible(false);
 			}
 		});
-		btnMostraIngredienti.setBounds(98, 127, 235, 25);
+		btnMostraIngredienti.setBounds(172, 217, 235, 25);
 		panelMain.add(btnMostraIngredienti);
 		
 		JButton btnModificaIngrediente = new JButton("MODIFICA INGREDIENTE");
-		btnModificaIngrediente.setBounds(98, 209, 235, 25);
+		btnModificaIngrediente.setBounds(172, 255, 235, 25);
 		panelMain.add(btnModificaIngrediente);
 		
 		JButton btnCalcolaCostoRicetta = new JButton("CALCOLA COSTO RICETTA");
-		btnCalcolaCostoRicetta.setBounds(98, 293, 235, 25);
+		btnCalcolaCostoRicetta.setBounds(172, 296, 235, 25);
 		panelMain.add(btnCalcolaCostoRicetta);
+		
+		JLabel label = new JLabel("");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setIcon(new ImageIcon("C:\\Users\\rapon\\Documents\\GitHub\\Chef-Cost-Calculator\\title2.png"));
+		label.setBounds(12, 38, 563, 106);
+		panelMain.add(label);
 		
 		JLabel lblNewLabel = new JLabel("INGREDIENTE");
 		lblNewLabel.setBounds(56, 47, 88, 16);
@@ -225,15 +233,44 @@ public class MainGui {
 		panelIngredientAlreadyPresent.add(btnBackToMenu);
 		
 		JTextArea textAreaIngredients = new JTextArea();
+		textAreaIngredients.setEditable(false);
 		textAreaIngredients.setBounds(12, 30, 144, 292);
 		panelShowIngredientsInFile.add(textAreaIngredients);
-		textAreaIngredients.setText("asd");
+		try {
+			ArrayList<Ingredient> listIngredient = FileDB.getIngredientListFromFile("CostDB.txt");
+			String ingredientsToShow = "";
+			for(Ingredient i : listIngredient){
+				ingredientsToShow += i.getIngredientName() + "\n";
+			}
+			textAreaIngredients.setText(ingredientsToShow);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		JTextArea textAreaPrices = new JTextArea();
+		textAreaPrices.setEditable(false);
 		textAreaPrices.setBounds(168, 30, 96, 292);
 		panelShowIngredientsInFile.add(textAreaPrices);
+		try {
+			ArrayList<Ingredient> listIngredient = FileDB.getIngredientListFromFile("CostDB.txt");
+			String pricesToShow = "";
+			for(Ingredient i : listIngredient){
+				pricesToShow += i.getIngredientCost() + "\n";
+			}
+			textAreaPrices.setText(pricesToShow);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		JButton btnMenu = new JButton("MENU");
+		btnMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelMain.setVisible(true);
+				panelShowIngredientsInFile.setVisible(false);
+			}
+		});
 		btnMenu.setBounds(304, 170, 97, 25);
 		panelShowIngredientsInFile.add(btnMenu);
 		

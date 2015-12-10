@@ -13,6 +13,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import it.chefcostcalculator.core.Ingredient;
 
@@ -130,6 +132,5 @@ public abstract class FileDB {
 		}
 		reader.close();
 		return list;
-		
 	}
 }
