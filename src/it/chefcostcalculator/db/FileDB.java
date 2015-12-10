@@ -131,6 +131,10 @@ public abstract class FileDB {
 			line=reader.readLine();
 		}
 		reader.close();
+//		for(Ingredient i : list){
+//			System.out.println(i.getIngredientName());
+//		}
+//		System.out.println("___________________");
 		return list;
 		
 	}

@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 
 import it.chefcostcalculator.core.Ingredient;
 import it.chefcostcalculator.db.FileDB;
+import jdk.nashorn.internal.runtime.ListAdapter;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -33,6 +34,9 @@ public class MainGui {
 	private JTextField textFieldPrice;
 	private JTextField textFieldQuantity;
 	private JTextField textField;
+	private ArrayList<Ingredient> listIngredient = new ArrayList<>();
+	private JTextArea textAreaIngredients;
+	private JTextArea textAreaPrices ;
 //	private JPanel panelMain;
 //	private JPanel panelAddIngredient;
 //	private JPanel panelIngredientAddedToFile;
@@ -53,7 +57,7 @@ public class MainGui {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the application.
 	 */
@@ -107,6 +111,7 @@ public class MainGui {
 		JButton btnMostraIngredienti = new JButton("MOSTRA INGREDIENTI");
 		btnMostraIngredienti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				updateList();
 				panelShowIngredientsInFile.setVisible(true);
 				panelMain.setVisible(false);
 			}
@@ -202,12 +207,8 @@ public class MainGui {
 					FileDB.insertIngredientToFile("CostDB.txt", toFile);
 					panelIngredientAddedToFile.setVisible(true);
 					panelAddIngredient.setVisible(false);
-//				} catch (IOException e1) {
-//					System.out.println(e1.getMessage());
-//					panelIngredientAlreadyPresent.setVisible(true);
-//					panelAddIngredient.setVisible(false);
+
 				} catch (Exception e1) {
-//					System.out.println(e1.getMessage());
 					panelIngredientAlreadyPresent.setVisible(true);
 					panelAddIngredient.setVisible(false);
 				}
@@ -248,37 +249,17 @@ public class MainGui {
 		btnBackToMenu.setBounds(12, 169, 408, 25);
 		panelIngredientAlreadyPresent.add(btnBackToMenu);
 		
-		JTextArea textAreaIngredients = new JTextArea();
+		textAreaIngredients = new JTextArea();
 		textAreaIngredients.setEditable(false);
 		textAreaIngredients.setBounds(12, 30, 144, 292);
 		panelShowIngredientsInFile.add(textAreaIngredients);
-		try {
-			ArrayList<Ingredient> listIngredient = FileDB.getIngredientListFromFile("CostDB.txt");
-			String ingredientsToShow = "";
-			for(Ingredient i : listIngredient){
-				ingredientsToShow += i.getIngredientName() + "\n";
-			}
-			textAreaIngredients.setText(ingredientsToShow);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		updateList();
 		
-		JTextArea textAreaPrices = new JTextArea();
+		textAreaPrices = new JTextArea();
 		textAreaPrices.setEditable(false);
 		textAreaPrices.setBounds(168, 30, 96, 292);
 		panelShowIngredientsInFile.add(textAreaPrices);
-		try {
-			ArrayList<Ingredient> listIngredient = FileDB.getIngredientListFromFile("CostDB.txt");
-			String pricesToShow = "";
-			for(Ingredient i : listIngredient){
-				pricesToShow += i.getIngredientCost() + "\n";
-			}
-			textAreaPrices.setText(pricesToShow);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		updateList();
 		
 		JButton btnMenu = new JButton("MENU");
 		btnMenu.addActionListener(new ActionListener() {
@@ -312,7 +293,16 @@ public class MainGui {
 		lblIngrediente.setBounds(111, 127, 130, 16);
 		panelTest.add(lblIngrediente);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		Ingredient[] ingredientArray = null;
+		try {
+			ArrayList<Ingredient> ingredientArrayList = FileDB.getIngredientListFromFile("CostDB.txt");
+			ingredientArray = ingredientArrayList.toArray(new Ingredient[ingredientArrayList.size()]);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		JComboBox comboBox_1 = new JComboBox(ingredientArray);
 		comboBox_1.setBounds(225, 124, 181, 22);
 		panelTest.add(comboBox_1);
 		
@@ -330,5 +320,24 @@ public class MainGui {
 		});
 		btnTornaAlMenu_1.setBounds(111, 284, 208, 25);
 		panelTest.add(btnTornaAlMenu_1);
+	}
+
+	private void updateList() {
+		try {
+			listIngredient = FileDB.getIngredientListFromFile("CostDB.txt");
+
+			String ingredientsToShow = "";
+			String pricesToShow = "";
+			for(int i = 0; i < listIngredient.size();i++){
+				ingredientsToShow += listIngredient.get(i).getIngredientName() + "\n";
+				pricesToShow += String.valueOf(listIngredient.get(i).getIngredientCost()) + "\n";
+			}
+			textAreaIngredients.setText(ingredientsToShow);
+			textAreaPrices.setText(pricesToShow);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	}
 }
