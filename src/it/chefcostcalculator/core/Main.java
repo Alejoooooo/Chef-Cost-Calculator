@@ -17,9 +17,19 @@ public class Main {
 		dosi.add(burroDose);
 		
 		Recipe dolce = new Recipe("Dolce", dosi);
+		ArrayList<Ingredient> list = new ArrayList<>();
+		
+		try {
+			list = FileDB.getIngredientListFromFile("CostDB.txt");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		Utility.printIngredientList(list);
 		
 //		try {
-//			FileDB.ingredientToFile("CostDB.txt", new Ingredient("Pepe", 1.372));
+//			FileDB.ingredientToFile("temp.txt", new Ingredient("Pepe", 1.372));
 //		} catch (IOException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
@@ -34,14 +44,20 @@ public class Main {
 //		}
 		
 //		try {
-//			FileDB.ingredientToFile("CostBD.txt", new Ingredient("Zucca", 21));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
+//			FileDB.ingredientToFile("CostDB.txt", new Ingredient("acqua", 21));
+//		} catch (IllegalArgumentException | IOException e) {
 //			System.out.println(e.getMessage());
 //		}
 
 //		try {
-//			System.out.println(FileDB.isPresentIngredient("CostDB.txt", farina.getIngredientName()));
+//			System.out.println(FileDB.isPresentIngredient("CostDB.txt", "ZUCCA"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+//		try {
+//			FileDB.removeIngredientFromFile("CostDB.txt", "acqua");
 //		} catch (IOException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();

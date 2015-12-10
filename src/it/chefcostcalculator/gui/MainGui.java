@@ -32,6 +32,7 @@ public class MainGui {
 	private JTextField textFieldIngredient;
 	private JTextField textFieldPrice;
 	private JTextField textFieldQuantity;
+	private JTextField textField;
 //	private JPanel panelMain;
 //	private JPanel panelAddIngredient;
 //	private JPanel panelIngredientAddedToFile;
@@ -89,6 +90,10 @@ public class MainGui {
 		frame.getContentPane().add(panelShowIngredientsInFile, "name_11509410566825");
 		panelShowIngredientsInFile.setLayout(null);
 		
+		JPanel panelTest = new JPanel();
+		frame.getContentPane().add(panelTest, "name_2278138541588");
+		panelTest.setLayout(null);
+		
 		JButton btnInserisciIngrediente = new JButton("INSERISCI INGREDIENTE");
 		btnInserisciIngrediente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -122,6 +127,16 @@ public class MainGui {
 		label.setIcon(new ImageIcon("C:\\Users\\rapon\\Documents\\GitHub\\Chef-Cost-Calculator\\title2.png"));
 		label.setBounds(12, 38, 563, 106);
 		panelMain.add(label);
+		
+		JButton btnTest = new JButton("TEST");
+		btnTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelTest.setVisible(true);
+				panelMain.setVisible(false);
+			}
+		});
+		btnTest.setBounds(465, 217, 97, 25);
+		panelMain.add(btnTest);
 		
 		JLabel lblNewLabel = new JLabel("INGREDIENTE");
 		lblNewLabel.setBounds(56, 47, 88, 16);
@@ -283,16 +298,37 @@ public class MainGui {
 		lblPrezzo.setBounds(190, 13, 56, 16);
 		panelShowIngredientsInFile.add(lblPrezzo);
 		
-		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(Color.LIGHT_GRAY);
-		frame.getContentPane().add(desktopPane, "name_1506926893994");
-		desktopPane.setLayout(null);
+		JPanel panelModifyIngredient = new JPanel();
+		frame.getContentPane().add(panelModifyIngredient, "name_1752416106886");
+		panelModifyIngredient.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 10, 10);
-		desktopPane.add(panel);
+//		ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
+//		ingredientList = FileDB.getIngredientListFromFile("CostDB.txt");
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(76, 152, 150, 22);
+		panelModifyIngredient.add(comboBox);
 		
-		JButton btnNewButton = new JButton("New button");
-		panel.add(btnNewButton);
+		JLabel lblIngrediente = new JLabel("INGREDIENTE");
+		lblIngrediente.setBounds(111, 127, 130, 16);
+		panelTest.add(lblIngrediente);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(225, 124, 181, 22);
+		panelTest.add(comboBox_1);
+		
+		textField = new JTextField();
+		textField.setBounds(203, 208, 116, 22);
+		panelTest.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnTornaAlMenu_1 = new JButton("TORNA AL MENU PRINCIPALE");
+		btnTornaAlMenu_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelMain.setVisible(true);
+				panelTest.setVisible(false);
+			}
+		});
+		btnTornaAlMenu_1.setBounds(111, 284, 208, 25);
+		panelTest.add(btnTornaAlMenu_1);
 	}
 }
