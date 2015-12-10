@@ -33,10 +33,11 @@ public class MainGui {
 	private JTextField textFieldIngredient;
 	private JTextField textFieldPrice;
 	private JTextField textFieldQuantity;
-	private JTextField textField;
 	private ArrayList<Ingredient> listIngredient = new ArrayList<>();
 	private JTextArea textAreaIngredients;
 	private JTextArea textAreaPrices ;
+	private JTextField textFieldOldCost;
+	private JTextField textFieldNewCost;
 //	private JPanel panelMain;
 //	private JPanel panelAddIngredient;
 //	private JPanel panelIngredientAddedToFile;
@@ -94,9 +95,9 @@ public class MainGui {
 		frame.getContentPane().add(panelShowIngredientsInFile, "name_11509410566825");
 		panelShowIngredientsInFile.setLayout(null);
 		
-		JPanel panelTest = new JPanel();
-		frame.getContentPane().add(panelTest, "name_2278138541588");
-		panelTest.setLayout(null);
+		JPanel panelModifyIngredient = new JPanel();
+		frame.getContentPane().add(panelModifyIngredient, "name_1752416106886");
+		panelModifyIngredient.setLayout(null);
 		
 		JButton btnInserisciIngrediente = new JButton("INSERISCI INGREDIENTE");
 		btnInserisciIngrediente.addActionListener(new ActionListener() {
@@ -111,7 +112,7 @@ public class MainGui {
 		JButton btnMostraIngredienti = new JButton("MOSTRA INGREDIENTI");
 		btnMostraIngredienti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				updateList();
+				updateTextArea();
 				panelShowIngredientsInFile.setVisible(true);
 				panelMain.setVisible(false);
 			}
@@ -120,6 +121,12 @@ public class MainGui {
 		panelMain.add(btnMostraIngredienti);
 		
 		JButton btnModificaIngrediente = new JButton("MODIFICA INGREDIENTE");
+		btnModificaIngrediente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelModifyIngredient.setVisible(true);
+				panelMain.setVisible(false);
+			}
+		});
 		btnModificaIngrediente.setBounds(172, 255, 235, 25);
 		panelMain.add(btnModificaIngrediente);
 		
@@ -129,19 +136,19 @@ public class MainGui {
 		
 		JLabel label = new JLabel("");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setIcon(new ImageIcon("C:\\Users\\rapon\\Documents\\GitHub\\Chef-Cost-Calculator\\title2.png"));
+		label.setIcon(new ImageIcon("title2.png"));
 		label.setBounds(12, 38, 563, 106);
 		panelMain.add(label);
 		
-		JButton btnTest = new JButton("TEST");
-		btnTest.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelTest.setVisible(true);
-				panelMain.setVisible(false);
-			}
-		});
-		btnTest.setBounds(465, 217, 97, 25);
-		panelMain.add(btnTest);
+//		JButton btnTest = new JButton("TEST");
+//		btnTest.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				panel.setVisible(true);
+//				panelMain.setVisible(false);
+//			}
+//		});
+//		btnTest.setBounds(465, 217, 97, 25);
+//		panelMain.add(btnTest);
 		
 		JLabel lblNewLabel = new JLabel("INGREDIENTE");
 		lblNewLabel.setBounds(56, 47, 88, 16);
@@ -259,7 +266,7 @@ public class MainGui {
 		textAreaPrices.setEditable(false);
 		textAreaPrices.setBounds(168, 30, 96, 292);
 		panelShowIngredientsInFile.add(textAreaPrices);
-		updateList();
+		updateTextArea();
 		
 		JButton btnMenu = new JButton("MENU");
 		btnMenu.addActionListener(new ActionListener() {
@@ -279,19 +286,54 @@ public class MainGui {
 		lblPrezzo.setBounds(190, 13, 56, 16);
 		panelShowIngredientsInFile.add(lblPrezzo);
 		
-		JPanel panelModifyIngredient = new JPanel();
-		frame.getContentPane().add(panelModifyIngredient, "name_1752416106886");
-		panelModifyIngredient.setLayout(null);
+		JButton btnTornaAlMenu_2 = new JButton("TORNA AL MENU PRINCIPALE");
+		btnTornaAlMenu_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelMain.setVisible(true);
+				panelModifyIngredient.setVisible(false);
+			}
+		});
+		btnTornaAlMenu_2.setBounds(331, 309, 232, 25);
+		panelModifyIngredient.add(btnTornaAlMenu_2);
 		
-//		ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
-//		ingredientList = FileDB.getIngredientListFromFile("CostDB.txt");
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(76, 152, 150, 22);
-		panelModifyIngredient.add(comboBox);
+		JLabel lblNomeIngrediente = new JLabel("NOME INGREDIENTE");
+		lblNomeIngrediente.setBounds(78, 91, 155, 16);
+		panelModifyIngredient.add(lblNomeIngrediente);
 		
-		JLabel lblIngrediente = new JLabel("INGREDIENTE");
-		lblIngrediente.setBounds(111, 127, 130, 16);
-		panelTest.add(lblIngrediente);
+		String[] listName = FileDB.getIngredientNameArrayFromFile("CostDB.txt");
+		JComboBox comboBoxIngredientName = new JComboBox(listName);
+		comboBoxIngredientName.setBounds(290, 88, 215, 22);
+		panelModifyIngredient.add(comboBoxIngredientName);
+				
+		JLabel lblPrezzoAttuale = new JLabel("PREZZO ATTUALE");
+		lblPrezzoAttuale.setBounds(78, 155, 135, 16);
+		panelModifyIngredient.add(lblPrezzoAttuale);
+		
+		JLabel lblNuovoPrezzo = new JLabel("NUOVO PREZZO");
+		lblNuovoPrezzo.setBounds(78, 221, 106, 16);
+		panelModifyIngredient.add(lblNuovoPrezzo);
+		
+		textFieldOldCost = new JTextField();
+		textFieldOldCost.setEditable(false);
+		textFieldOldCost.setBounds(290, 152, 116, 22);
+		panelModifyIngredient.add(textFieldOldCost);
+		textFieldOldCost.setColumns(10);
+		String nameIngredient = (String) comboBoxIngredientName.getSelectedItem();
+		String costIngredient = null;
+		
+		try {
+			costIngredient = String.valueOf(FileDB.getIngredientByNameFromFile("CostDB.txt", nameIngredient).getIngredientCost());
+		} catch (IOException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		
+		textFieldOldCost.setText(costIngredient);
+		
+		textFieldNewCost = new JTextField();
+		textFieldNewCost.setBounds(290, 218, 116, 22);
+		panelModifyIngredient.add(textFieldNewCost);
+		textFieldNewCost.setColumns(10);
 		
 		Ingredient[] ingredientArray = null;
 		try {
@@ -301,28 +343,14 @@ public class MainGui {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		JComboBox comboBox_1 = new JComboBox(ingredientArray);
-		comboBox_1.setBounds(225, 124, 181, 22);
-		panelTest.add(comboBox_1);
-		
-		textField = new JTextField();
-		textField.setBounds(203, 208, 116, 22);
-		panelTest.add(textField);
-		textField.setColumns(10);
-		
-		JButton btnTornaAlMenu_1 = new JButton("TORNA AL MENU PRINCIPALE");
-		btnTornaAlMenu_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelMain.setVisible(true);
-				panelTest.setVisible(false);
-			}
-		});
-		btnTornaAlMenu_1.setBounds(111, 284, 208, 25);
-		panelTest.add(btnTornaAlMenu_1);
 	}
 
-	private void updateList() {
+//	private String[] createNameListCombo() {
+//		// TODO Auto-generated method stub
+//		
+//	}
+
+	private void updateTextArea() {
 		try {
 			listIngredient = FileDB.getIngredientListFromFile("CostDB.txt");
 

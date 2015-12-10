@@ -45,6 +45,7 @@ public abstract class FileDB {
 		return false;
 	}
 	
+	@SuppressWarnings("unused")
 	public static Ingredient getIngredientByNameFromFile(String filename, String ingredientName) throws IOException{
 		FileReader file;
 		try {
@@ -137,5 +138,25 @@ public abstract class FileDB {
 //		System.out.println("___________________");
 		return list;
 		
+	}
+	
+	public static String[] getIngredientNameArrayFromFile(String filename){
+		ArrayList<Ingredient> al = new ArrayList<>();
+		ArrayList<String> listName = new ArrayList<>();
+		
+		
+		try {
+			al = getIngredientListFromFile(filename);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(Ingredient i : al){
+			listName.add(i.getIngredientName());
+		}
+		String[] toReturn = new String[listName.size()];
+		listName.toArray(toReturn);
+		return toReturn;
 	}
 }
