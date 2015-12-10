@@ -24,6 +24,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
 
 public class MainGui {
 
@@ -281,5 +282,17 @@ public class MainGui {
 		JLabel lblPrezzo = new JLabel("PREZZO");
 		lblPrezzo.setBounds(190, 13, 56, 16);
 		panelShowIngredientsInFile.add(lblPrezzo);
+		
+		JDesktopPane desktopPane = new JDesktopPane();
+		desktopPane.setBackground(Color.LIGHT_GRAY);
+		frame.getContentPane().add(desktopPane, "name_1506926893994");
+		desktopPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 10, 10);
+		desktopPane.add(panel);
+		
+		JButton btnNewButton = new JButton("New button");
+		panel.add(btnNewButton);
 	}
 }
