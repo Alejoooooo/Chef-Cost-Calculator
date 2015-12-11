@@ -5,8 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 import it.chefcostcalculator.core.Ingredient;
 import it.chefcostcalculator.db.FileDB;
@@ -34,10 +36,10 @@ public class MainGui {
 	private JTextField textFieldPrice;
 	private JTextField textFieldQuantity;
 	private ArrayList<Ingredient> listIngredient = new ArrayList<>();
-	private JTextArea textAreaIngredients;
 	private JTextArea textAreaPrices ;
 	private JTextField textFieldOldCost;
 	private JTextField textFieldNewCost;
+	private JTextArea textAreaIngredients;
 //	private JPanel panelMain;
 //	private JPanel panelAddIngredient;
 //	private JPanel panelIngredientAddedToFile;
@@ -256,17 +258,11 @@ public class MainGui {
 		btnBackToMenu.setBounds(12, 169, 408, 25);
 		panelIngredientAlreadyPresent.add(btnBackToMenu);
 		
-		textAreaIngredients = new JTextArea();
-		textAreaIngredients.setEditable(false);
-		textAreaIngredients.setBounds(12, 30, 144, 292);
-		panelShowIngredientsInFile.add(textAreaIngredients);
-//		updateList();
-		
 		textAreaPrices = new JTextArea();
 		textAreaPrices.setEditable(false);
 		textAreaPrices.setBounds(168, 30, 96, 292);
 		panelShowIngredientsInFile.add(textAreaPrices);
-		updateTextArea();
+		
 		
 		JButton btnMenu = new JButton("MENU");
 		btnMenu.addActionListener(new ActionListener() {
@@ -286,6 +282,14 @@ public class MainGui {
 		lblPrezzo.setBounds(190, 13, 56, 16);
 		panelShowIngredientsInFile.add(lblPrezzo);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 46, 144, 276);
+		panelShowIngredientsInFile.add(scrollPane);
+		
+		textAreaIngredients = new JTextArea();
+		scrollPane.setViewportView(textAreaIngredients);
+		
+		
 		JButton btnTornaAlMenu_2 = new JButton("TORNA AL MENU PRINCIPALE");
 		btnTornaAlMenu_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -304,6 +308,13 @@ public class MainGui {
 		JComboBox comboBoxIngredientName = new JComboBox(listName);
 		comboBoxIngredientName.setBounds(290, 88, 215, 22);
 		panelModifyIngredient.add(comboBoxIngredientName);
+		comboBoxIngredientName.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 				
 		JLabel lblPrezzoAttuale = new JLabel("PREZZO ATTUALE");
 		lblPrezzoAttuale.setBounds(78, 155, 135, 16);
@@ -321,6 +332,7 @@ public class MainGui {
 		String nameIngredient = (String) comboBoxIngredientName.getSelectedItem();
 		String costIngredient = null;
 		
+//		updateCost
 		try {
 			costIngredient = String.valueOf(FileDB.getIngredientByNameFromFile("CostDB.txt", nameIngredient).getIngredientCost());
 		} catch (IOException e3) {
@@ -334,6 +346,8 @@ public class MainGui {
 		textFieldNewCost.setBounds(290, 218, 116, 22);
 		panelModifyIngredient.add(textFieldNewCost);
 		textFieldNewCost.setColumns(10);
+//		VA SPOSTATA DOPO AVER AGGIUNTO LO SCROLL AL PREZZO
+		updateTextArea();
 		
 		Ingredient[] ingredientArray = null;
 		try {
