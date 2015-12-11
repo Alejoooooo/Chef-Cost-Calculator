@@ -108,7 +108,7 @@ public class MainGui {
 				panelMain.setVisible(false);
 			}
 		});
-		btnInserisciIngrediente.setBounds(172, 179, 235, 25);
+		btnInserisciIngrediente.setBounds(197, 177, 235, 25);
 		panelMain.add(btnInserisciIngrediente);
 		
 		JButton btnMostraIngredienti = new JButton("MOSTRA INGREDIENTI");
@@ -119,7 +119,7 @@ public class MainGui {
 				panelMain.setVisible(false);
 			}
 		});
-		btnMostraIngredienti.setBounds(172, 217, 235, 25);
+		btnMostraIngredienti.setBounds(197, 218, 235, 25);
 		panelMain.add(btnMostraIngredienti);
 		
 		JButton btnModificaIngrediente = new JButton("MODIFICA INGREDIENTE");
@@ -129,11 +129,11 @@ public class MainGui {
 				panelMain.setVisible(false);
 			}
 		});
-		btnModificaIngrediente.setBounds(172, 255, 235, 25);
+		btnModificaIngrediente.setBounds(197, 259, 235, 25);
 		panelMain.add(btnModificaIngrediente);
 		
 		JButton btnCalcolaCostoRicetta = new JButton("CALCOLA COSTO RICETTA");
-		btnCalcolaCostoRicetta.setBounds(172, 296, 235, 25);
+		btnCalcolaCostoRicetta.setBounds(197, 304, 235, 25);
 		panelMain.add(btnCalcolaCostoRicetta);
 		
 		JLabel label = new JLabel("");
@@ -153,38 +153,38 @@ public class MainGui {
 //		panelMain.add(btnTest);
 		
 		JLabel lblNewLabel = new JLabel("INGREDIENTE");
-		lblNewLabel.setBounds(56, 47, 88, 16);
+		lblNewLabel.setBounds(152, 47, 88, 16);
 		panelAddIngredient.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("PREZZO");
-		lblNewLabel_1.setBounds(56, 89, 88, 16);
+		lblNewLabel_1.setBounds(152, 89, 88, 16);
 		panelAddIngredient.add(lblNewLabel_1);
 		
 		textFieldIngredient = new JTextField();
-		textFieldIngredient.setBounds(186, 44, 234, 22);
+		textFieldIngredient.setBounds(321, 44, 234, 22);
 		panelAddIngredient.add(textFieldIngredient);
 		textFieldIngredient.setColumns(10);
 		
 		textFieldPrice = new JTextField();
-		textFieldPrice.setBounds(186, 86, 73, 22);
+		textFieldPrice.setBounds(321, 86, 73, 22);
 		panelAddIngredient.add(textFieldPrice);
 		textFieldPrice.setColumns(10);
 		
 		String[] measures = {"g", "Kg"};
 		JComboBox comboBoxMeasure = new JComboBox(measures);
-		comboBoxMeasure.setBounds(186, 141, 73, 22);
+		comboBoxMeasure.setBounds(321, 142, 73, 22);
 		panelAddIngredient.add(comboBoxMeasure);
 		
 		JLabel lblNewLabel_2 = new JLabel("UNITA' DI MISURA");
-		lblNewLabel_2.setBounds(56, 144, 110, 16);
+		lblNewLabel_2.setBounds(152, 144, 110, 16);
 		panelAddIngredient.add(lblNewLabel_2);
 		
 		JLabel lblQuantita = new JLabel("QUANTITA'");
-		lblQuantita.setBounds(56, 200, 88, 16);
+		lblQuantita.setBounds(152, 200, 88, 16);
 		panelAddIngredient.add(lblQuantita);
 		
 		textFieldQuantity = new JTextField();
-		textFieldQuantity.setBounds(186, 197, 73, 22);
+		textFieldQuantity.setBounds(321, 197, 73, 22);
 		panelAddIngredient.add(textFieldQuantity);
 		textFieldQuantity.setColumns(10);
 		
@@ -195,7 +195,7 @@ public class MainGui {
 				panelAddIngredient.setVisible(false);
 			}
 		});
-		btnAnnulla.setBounds(56, 265, 97, 25);
+		btnAnnulla.setBounds(192, 265, 97, 25);
 		panelAddIngredient.add(btnAnnulla);
 		
 		JButton btnSalva = new JButton("SALVA");
@@ -223,39 +223,39 @@ public class MainGui {
 				}
 			}
 		});
-		btnSalva.setBounds(241, 265, 97, 25);
+		btnSalva.setBounds(321, 265, 97, 25);
 		panelAddIngredient.add(btnSalva);
 		
 		JLabel lblIngredienteInseritoCorrettamente = new JLabel("INGREDIENTE INSERITO CORRETTAMENTE");
 		lblIngredienteInseritoCorrettamente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIngredienteInseritoCorrettamente.setBounds(12, 135, 408, 16);
+		lblIngredienteInseritoCorrettamente.setBounds(0, 97, 605, 16);
 		panelIngredientAddedToFile.add(lblIngredienteInseritoCorrettamente);
 		
-		JButton btnTornaAlMenu = new JButton("TORNA AL MENU PRINCIPALE");
+		JButton btnTornaAlMenu = new JButton("INDIETRO");
 		btnTornaAlMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelMain.setVisible(true);
+				panelAddIngredient.setVisible(true);
 				panelIngredientAddedToFile.setVisible(false);
 			}
 		});
-		btnTornaAlMenu.setBounds(12, 177, 408, 25);
+		btnTornaAlMenu.setBounds(224, 213, 163, 25);
 		panelIngredientAddedToFile.add(btnTornaAlMenu);
 		
 		JLabel lblIngredienteGiaPresente = new JLabel("INGREDIENTE GIA' PRESENTE");
 		lblIngredienteGiaPresente.setForeground(Color.RED);
 		lblIngredienteGiaPresente.setBackground(Color.LIGHT_GRAY);
 		lblIngredienteGiaPresente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIngredienteGiaPresente.setBounds(12, 99, 408, 16);
+		lblIngredienteGiaPresente.setBounds(0, 97, 605, 16);
 		panelIngredientAlreadyPresent.add(lblIngredienteGiaPresente);
 		
-		JButton btnBackToMenu = new JButton("TORNA AL MENU PRINCIPALE");
+		JButton btnBackToMenu = new JButton("INDIETRO");
 		btnBackToMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelMain.setVisible(true);
+				panelAddIngredient.setVisible(true);
 				panelIngredientAlreadyPresent.setVisible(false);
 			}
 		});
-		btnBackToMenu.setBounds(12, 169, 408, 25);
+		btnBackToMenu.setBounds(225, 213, 168, 25);
 		panelIngredientAlreadyPresent.add(btnBackToMenu);
 		
 		textAreaPrices = new JTextArea();
@@ -264,14 +264,14 @@ public class MainGui {
 		panelShowIngredientsInFile.add(textAreaPrices);
 		
 		
-		JButton btnMenu = new JButton("MENU");
+		JButton btnMenu = new JButton("TORNA AL MENU PRINCIPALE");
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelMain.setVisible(true);
 				panelShowIngredientsInFile.setVisible(false);
 			}
 		});
-		btnMenu.setBounds(304, 170, 97, 25);
+		btnMenu.setBounds(324, 297, 233, 25);
 		panelShowIngredientsInFile.add(btnMenu);
 		
 		JLabel lblIngredienti = new JLabel("INGREDIENTI");
