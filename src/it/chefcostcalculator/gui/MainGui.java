@@ -257,11 +257,15 @@ public class MainGui {
 		});
 		btnBackToMenu.setBounds(225, 213, 168, 25);
 		panelIngredientAlreadyPresent.add(btnBackToMenu);
+		JScrollPane scrollPanePrice = new JScrollPane();
+		scrollPanePrice.setBounds(168, 46, 130, 276);
+		panelShowIngredientsInFile.add(scrollPanePrice);
 		
 		textAreaPrices = new JTextArea();
 		textAreaPrices.setEditable(false);
-		textAreaPrices.setBounds(168, 30, 96, 292);
-		panelShowIngredientsInFile.add(textAreaPrices);
+		scrollPanePrice.setViewportView(textAreaPrices);
+		//textAreaPrices.setBounds(168, 46, 130, 276);
+		//panelShowIngredientsInFile.add(textAreaPrices);
 		
 		
 		JButton btnMenu = new JButton("TORNA AL MENU PRINCIPALE");
@@ -275,18 +279,22 @@ public class MainGui {
 		panelShowIngredientsInFile.add(btnMenu);
 		
 		JLabel lblIngredienti = new JLabel("INGREDIENTI");
-		lblIngredienti.setBounds(44, 13, 87, 16);
+		lblIngredienti.setBounds(12, 13, 87, 16);
 		panelShowIngredientsInFile.add(lblIngredienti);
 		
 		JLabel lblPrezzo = new JLabel("PREZZO");
-		lblPrezzo.setBounds(190, 13, 56, 16);
+		lblPrezzo.setBounds(168, 13, 56, 16);
 		panelShowIngredientsInFile.add(lblPrezzo);
 		
+		
+		/* This JScrollPane is the Object that 
+		 * makes the textAreaIngredients scrollable*/
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 46, 144, 276);
 		panelShowIngredientsInFile.add(scrollPane);
 		
 		textAreaIngredients = new JTextArea();
+		textAreaIngredients.setEditable(false);
 		scrollPane.setViewportView(textAreaIngredients);
 		
 		

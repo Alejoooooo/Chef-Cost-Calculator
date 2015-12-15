@@ -45,6 +45,9 @@ public abstract class FileDB {
 		return false;
 	}
 	
+	
+	/* This method takes the Ingredients by name from a File*/
+	
 	@SuppressWarnings("unused")
 	public static Ingredient getIngredientByNameFromFile(String filename, String ingredientName) throws IOException{
 		FileReader file;
@@ -74,6 +77,7 @@ public abstract class FileDB {
 		
 }
 
+	/*This method allows you to insert Ingredients through the MainGui into the file text*/
 	public static void insertIngredientToFile(String filename, Ingredient ingredient) throws IOException, IllegalArgumentException{
 //		try {
 //			getIngredientByNameFromFile(filename, ingredient.getIngredientName());
@@ -95,7 +99,7 @@ public abstract class FileDB {
 //		}
 			
 }
-	
+	/*This method allows you to remove and Ingredient from the text file through the MainGui*/
 	public static void removeIngredientFromFile(String filename, String ingredientName) throws IOException{
 	  	FileReader fr = new FileReader(filename);
 	  	String tempFilename = "temp.txt";
